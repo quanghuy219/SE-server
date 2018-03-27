@@ -1,4 +1,4 @@
-module.exports = function (user_model) {
+module.exports = function(user_model, model_user) {
     return {
         list: (req, res) => {
             var page = req.params.page ? parseInt(req.params.page) : 1;
@@ -26,17 +26,17 @@ module.exports = function (user_model) {
         },
         get: (req, res) => {
             const id = req.params.id;
-            
-            const db = require("../lib/db.js");
+
+            // const db = require("../lib/db.js");
             // user_model.findById(id).then((data) => {
             //     res.json({ "status": "200", "message": "successful", "data": data.dataValues });
             // });
             user_model.findAll({
-                where: {id: req.params.id},
+                where: { id: req.params.id },
                 include: [{
-                    model: db.user,
+                    model: model_user,
                 }]
-            }).then( (data) => {
+            }).then((data) => {
                 res.json({ "status": "200", "message": "successful", "data": data.dataValues });
             })
         },
@@ -51,7 +51,7 @@ module.exports = function (user_model) {
                 console.log("success ", data);
                 res.json({ "status": "200", "message": "1 row(s) inserted", "data": data.dataValues });
             }).catch((err) => {
-                res.json({ "status": "404", "msg": err.errors[0].message});
+                res.json({ "status": "404", "msg": err.errors[0].message });
             });
         },
         update: (req, res) => {
@@ -72,8 +72,8 @@ module.exports = function (user_model) {
         },
         delete: (req, res) => {
             user_model.destroy({
-                where: { id: req.params.id }
-            })
+                    where: { id: req.params.id }
+                })
                 .then(rows => {
                     if (rows > 0)
                         res.json({ "status": "200", "message": rows + " row(s) affected" });
