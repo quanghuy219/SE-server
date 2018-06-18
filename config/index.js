@@ -31,7 +31,7 @@ var config = {
     port: port,
     dialect: 'mysql',
     host: 'localhost',
-    hostname: '35.232.164.78' + port,
+    hostname: '35.232.164.78'+ ":" + port,
     db: 'blog',
     db_port: 3306,  
     user: 'root',
