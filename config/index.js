@@ -15,10 +15,11 @@ var config = {
     port: port,
     dialect: 'mysql',
     hostname: 'localhost:'+port,
-    db: 'testdb',
+    // host: '',
+    db: 'blog',
     db_port: 3306,
     user: 'root',
-    pass: ''
+    pass: '123456'
   },
   development: {
     env: 'development',
@@ -29,12 +30,12 @@ var config = {
     },
     port: port,
     dialect: 'mysql',
-    host: 'be9d0lk1d-mysql.services.clever-cloud.com',
-    hostname: 'app-4a5dbc4f-d024-436d-a4c4-74ab131c9fa3.cleverapps.io/',
-    db: 'be9d0lk1d',
+    host: '10.128.0.2',
+    hostname: '35.232.164.78',
+    db: 'blog',
     db_port: 3306,  
-    user: 'ukmovi134a8o35rk',
-    pass: '0Fj28hHzXwkp07r7Tls'
+    user: 'root',
+    pass: '123456'
   },
 
   production: {
