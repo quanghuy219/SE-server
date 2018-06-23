@@ -3,7 +3,7 @@ var config = require('./config')
     , db = require('./app/lib/db')
     , utils = require('./app/lib/utils')(config, db)
     , app = express()
-
+    , fs = require('fs')
 
 function init() {
     db.checkConnection(successHandle, errorHandle);
@@ -12,10 +12,14 @@ function init() {
 function startServer() {
     console.log('Connection has been established successfully.');
     var model_list = utils.loadModels();
-    var http = require('http').createServer(app)
+    const options = {
+        key: fs.readFileSync('/etc/letsencrypt/live/quanghuyvps.dynu.net/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/quanghuyvps.dynu.net/fullchain.pem')
+      };
+    var https = require('https').createServer(options,app)
         require('./config/express')(app, config)
         require('./config/routes')(app, utils, model_list)
-        http.listen(config.port, function () {
+        https.listen(config.port, function () {
             console.log("API running at http://" + config.hostname)
         })
 }
